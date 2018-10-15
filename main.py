@@ -11,12 +11,14 @@ def read_server_list(gui_config_file):
 
 def test_server(addr):
     result = py_ping.ping(addr)
+    print('tested', addr, *(result.items() if result is not None else ['None']))
     return float(result['avg']) if result is not None else 99999
 
 
 def fast_in_server_list(addr_list):
     ping_avg_addr = [(test_server(addr), addr) for addr in addr_list]
     fast_avg_addr = min(ping_avg_addr, key=(lambda x: x[0]))
+    print('fast server', *fast_avg_addr)
     return fast_avg_addr[1]
 
 
